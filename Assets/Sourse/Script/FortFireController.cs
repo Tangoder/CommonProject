@@ -11,12 +11,13 @@ public class FortFireController : MonoBehaviour
     private float fireReloadTime;
     void Start()
     {
-        enemy = GameObject.FindGameObjectWithTag("Enemy");
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        enemy = GameObject.FindGameObjectWithTag("Enemy");
         if (fireReloadTime >= 0.5 && isFire == true) //每0.5秒發射一次
         {
             Instantiate(mybullet, transform.position, transform.rotation);
@@ -29,7 +30,7 @@ public class FortFireController : MonoBehaviour
     {
         if(other.gameObject.tag == "Enemy")
         {
-            fort.transform.LookAt(enemy.transform);
+            fort.transform.LookAt(other.transform);
             isFire = true;
         }
     }

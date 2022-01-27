@@ -20,37 +20,48 @@ public class PutEnemy : MonoBehaviour
 
     private void Update()
     {
-        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up) * 0.1f, Color.red); //顯示線debug用
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            GameManager.putFort = false;
+        }
     }
     private void OnMouseDown()
     {
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up),  0.1f))
+        if (GameManager.putFort == true )
         {
-            print("can't build more");
-            return;
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), 0.5f))
+            {
+                print("can't build more");
+                return;
+            }
+            Instantiate(fort, myPos, Quaternion.identity);
+            GameManager.putFort = false;
         }
-        Instantiate(fort, myPos, Quaternion.identity);
+        
     }
     private void OnMouseEnter()
     {
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), 0.1f))
+        if (GameManager.putFort == true )
         {
-            myColor.material.color = errorColor;
-            return;
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), 0.5f))
+            {
+                myColor.material.color = errorColor;
+                return;
+            }
+            myColor.material.color = hoverColor;
         }
-        myColor.material.color = hoverColor;
+        
     }
-    private void OnMouseOver()
+    /*private void OnMouseOver()
     {
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), 0.1f))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), 0.5f))
         {
             myColor.material.color = errorColor;
         }
-    }
+    }*/
     private void OnMouseExit()
     {
         myColor.material.color = originColor;
         
     }
-    
 }
