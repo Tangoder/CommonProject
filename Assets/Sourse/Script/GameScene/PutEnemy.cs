@@ -16,7 +16,7 @@ public class PutEnemy : MonoBehaviour
         myColor = GetComponent<Renderer>();
         originColor = myColor.material.color;
         myPos = GetComponent<Transform>().position;
-        myPos.y += 0.3f;  //reset fort position
+        myPos.y += 0.05f;  //reset fort position
     }
 
     private void Update()
@@ -30,7 +30,7 @@ public class PutEnemy : MonoBehaviour
     {
         if (GameManager.putFort == true )
         {
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), 0.5f))
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), 0.2f))
             {
                 print("can't build more");
                 return;
@@ -44,7 +44,7 @@ public class PutEnemy : MonoBehaviour
     {
         if (GameManager.putFort == true )
         {
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), 0.5f))
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), 0.2f))
             {
                 myColor.material.color = errorColor;
                 return;

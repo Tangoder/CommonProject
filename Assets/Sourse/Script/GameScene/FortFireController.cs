@@ -9,9 +9,11 @@ public class FortFireController : MonoBehaviour
     public GameObject mybullet;
     private bool isFire;
     private float fireReloadTime;
+    private Vector3 myPos;
     void Start()
     {
-        
+        myPos = GetComponent<Transform>().position;
+        myPos.y += 0.4f;  //reset fort position
     }
 
     // Update is called once per frame
@@ -20,7 +22,7 @@ public class FortFireController : MonoBehaviour
         enemy = GameObject.FindGameObjectWithTag("Enemy");
         if (fireReloadTime >= 0.5 && isFire == true) //每0.5秒發射一次
         {
-            PhotonNetwork.Instantiate(mybullet.name, transform.position, transform.rotation);
+            PhotonNetwork.Instantiate(mybullet.name, myPos, transform.rotation);
             fireReloadTime = 0;
         }
         isFire = false;
@@ -29,8 +31,9 @@ public class FortFireController : MonoBehaviour
     void OnTriggerStay(Collider other)
     {
         if(other.gameObject.tag == "Enemy")
-        {
-            fort.transform.LookAt(other.transform);
+        {   
+            
+            transform.LookAt(other.transform);
             isFire = true;
         }
     }

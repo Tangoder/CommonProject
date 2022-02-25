@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.LookAt(target); //rotate character
         Vector3 dir = target.position - transform.position;
         transform.Translate( dir.normalized * speed * Time.deltaTime , Space.World);
 
