@@ -5,36 +5,54 @@ using Photon.Pun;
 public class FortFireController : MonoBehaviour
 {
     public GameObject fort;
+
     private GameObject enemy;
+
     public GameObject mybullet;
+
     private bool isFire;
+
     private float fireReloadTime;
+
     private Vector3 myPos;
+
+    public float bulletFireDelay;
+
     void Start()
     {
         myPos = GetComponent<Transform>().position;
         myPos.y += 0.4f;  //reset fort position
+        StartCoroutine(FireDelay());
     }
 
-    // Update is called once per frame
     void Update()
     {
-        enemy = GameObject.FindGameObjectWithTag("Enemy");
-        if (fireReloadTime >= 0.5 && isFire == true) //每0.5秒發射一次
+        //enemy = GameObject.FindGameObjectWithTag("Enemy");
+        /*if (fireReloadTime >= bulletFireDelay && isFire == true)
         {
             PhotonNetwork.Instantiate(mybullet.name, myPos, transform.rotation);
             fireReloadTime = 0;
         }
         isFire = false;
-        fireReloadTime += Time.deltaTime;
+        fireReloadTime += Time.deltaTime;*/
     }
+
     void OnTriggerStay(Collider other)
     {
         if(other.gameObject.tag == "Enemy")
         {   
-            
             transform.LookAt(other.transform);
             isFire = true;
+        }
+    }
+
+    IEnumerator FireDelay()
+    {
+        while (true)
+        {   
+            if(isFire) PhotonNetwork.Instantiate(mybullet.name, myPos, transform.rotation);
+            isFire = false;
+            yield return new WaitForSeconds(0.75f);
         }
     }
 }

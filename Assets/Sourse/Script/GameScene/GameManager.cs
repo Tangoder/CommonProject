@@ -5,10 +5,13 @@ using Photon.Pun;
 public class GameManager : MonoBehaviour
 {
     public GameObject enemy;
+
     public Vector3 pos;
+
     public static bool putFort;
 
     public GameObject monsterButton;
+
     public GameObject fortButton;
     void Start()
     {

@@ -6,11 +6,17 @@ using Photon.Pun;
 public class PutEnemy : MonoBehaviour
 {
     public Color hoverColor;
+
     public Color errorColor;
+
     public GameObject fort;
+
     private Vector3 myPos;
+
     private Renderer myColor;
+
     private Color originColor;
+
     void Start()
     {
         myColor = GetComponent<Renderer>();

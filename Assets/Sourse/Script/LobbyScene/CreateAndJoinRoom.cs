@@ -7,9 +7,13 @@ using Photon.Pun;
 public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
 {
     public InputField createInput;
+
     public InputField joinInput;
+
     public static bool isFort = false;
+
     public static bool isMonster = false;
+
     public void CreateRoom()
     {
         PhotonNetwork.CreateRoom(createInput.text);

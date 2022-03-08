@@ -5,7 +5,9 @@ using UnityEngine;
 public class BulletController : MonoBehaviour
 {
     public float survivalTime = 3.0f;
+
     public float speed = 10.0f;
+
     void start()
     {
         
