@@ -36,6 +36,7 @@ public class TimerManager : MonoBehaviourPunCallbacks
         {
             gameOver = true;
             matchSummaryPanel.SetActive(true);
+           
             //turn off script and other work ,something setActive false and turn on match summary panel
         }
     }
