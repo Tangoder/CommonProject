@@ -6,17 +6,23 @@ using Photon.Pun;
 public class PutEnemy : MonoBehaviour
 {
     public Color hoverColor;
+
     public Color errorColor;
+
     public GameObject fort;
+
     private Vector3 myPos;
+
     private Renderer myColor;
+
     private Color originColor;
+
     void Start()
     {
         myColor = GetComponent<Renderer>();
         originColor = myColor.material.color;
         myPos = GetComponent<Transform>().position;
-        myPos.y += 0.3f;  //reset fort position
+        myPos.y += 0.05f;  //reset fort position
     }
 
     private void Update()
@@ -30,7 +36,7 @@ public class PutEnemy : MonoBehaviour
     {
         if (GameManager.putFort == true )
         {
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), 0.5f))
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), 0.2f))
             {
                 print("can't build more");
                 return;
@@ -44,7 +50,7 @@ public class PutEnemy : MonoBehaviour
     {
         if (GameManager.putFort == true )
         {
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), 0.5f))
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), 0.2f))
             {
                 myColor.material.color = errorColor;
                 return;
