@@ -134,7 +134,8 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
     }
 
     public void OnClickPlay()
-    {
+    {   
+
         PhotonNetwork.LoadLevel("Game");
     }
 

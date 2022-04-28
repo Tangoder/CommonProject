@@ -39,14 +39,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         putFort = true;
     }
 
-    public void OnClickExit()
-    {
-        
-        //PhotonNetwork.LoadLevel("");
-        //LoadScene
-        PhotonNetwork.LeaveRoom();
-    }
-    //do these
     public override void OnLeftRoom()
     {
         PhotonNetwork.ConnectUsingSettings();
@@ -59,7 +51,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
+        //PhotonNetwork.LoadLevel("Lobby");
+    }
+    public void OnClickExit()
+    {
         PhotonNetwork.LoadLevel("Lobby");
     }
-
 }

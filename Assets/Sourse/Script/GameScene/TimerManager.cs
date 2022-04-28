@@ -31,14 +31,13 @@ public class TimerManager : MonoBehaviourPunCallbacks
     {
         secTimerText.text = secRoundTime.ToString() + ":";
         minTimerText.text = minRoundTime.ToString();
+    }
 
-        if(minRoundTime + secRoundTime == 0)
-        {
-            gameOver = true;
-            matchSummaryPanel.SetActive(true);
-           
-            //turn off script and other work ,something setActive false and turn on match summary panel
-        }
+    void ScenePause()
+    {
+        Time.timeScale = 0;
+        matchSummaryPanel.SetActive(true);
+        //turn off script and other work ,something setActive false and turn on match summary panel
     }
 
     IEnumerator TimeDelay()
@@ -52,6 +51,12 @@ public class TimerManager : MonoBehaviourPunCallbacks
                 {
                     secRoundTime -= 1;
                     minRoundTime += 59;
+                }
+                if (minRoundTime + secRoundTime == 0)
+                {
+                    gameOver = true;
+                    PhotonNetwork.LeaveRoom();
+                    ScenePause();
                 }
             }
 
