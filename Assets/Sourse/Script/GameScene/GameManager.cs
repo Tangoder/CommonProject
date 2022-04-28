@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-public class GameManager : MonoBehaviour
+
+public class GameManager : MonoBehaviourPunCallbacks
 {
     public GameObject enemy;
 
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour
     public GameObject monsterButton;
 
     public GameObject fortButton;
+
     void Start()
     {
         if (CreateAndJoinRoom.isMonster)
@@ -26,6 +28,7 @@ public class GameManager : MonoBehaviour
             fortButton.SetActive(true);
         }
     }
+
     public void SummonEnemy()
     {
         PhotonNetwork.Instantiate(enemy.name, pos,Quaternion.identity);
@@ -36,5 +39,22 @@ public class GameManager : MonoBehaviour
         putFort = true;
     }
 
+    public override void OnLeftRoom()
+    {
+        PhotonNetwork.ConnectUsingSettings();
+    }
 
+    public override void OnConnectedToMaster()
+    {
+        PhotonNetwork.JoinLobby();
+    }
+
+    public override void OnJoinedLobby()
+    {
+        //PhotonNetwork.LoadLevel("Lobby");
+    }
+    public void OnClickExit()
+    {
+        PhotonNetwork.LoadLevel("Lobby");
+    }
 }
