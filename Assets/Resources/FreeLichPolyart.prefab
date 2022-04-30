@@ -344,11 +344,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  startHealth: 100
+  startHealth: 150
   hitParticle: {fileID: 1337198075554910, guid: 25c7aa9ad705fe143a4d71c1c8deb7d4, type: 3}
   healthBar: {fileID: 3220495988694659992}
   _animator: {fileID: 0}
-  normalBulletDamage: 20
+  normalBulletDamage: 10
 --- !u!114 &2813440613411085512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -531,7 +531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fe6bfce07831524a9292a6e9066f4dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 0}
+  _camera: {fileID: 0}
 --- !u!1 &2404745635810342744
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,6 +21,14 @@ public class TimerManager : MonoBehaviourPunCallbacks
 
     public GameObject matchSummaryPanel;
 
+    public GameObject fortSummonPanel;
+
+    public GameObject monsterSummonPanel;
+
+    public GameObject fortFloatButton;
+
+    public GameObject monsterFloatButton;
+
     private void Start()
     {
         gameOver = false;
@@ -37,6 +45,10 @@ public class TimerManager : MonoBehaviourPunCallbacks
     {
         Time.timeScale = 0;
         matchSummaryPanel.SetActive(true);
+        fortSummonPanel.SetActive(false);
+        monsterSummonPanel.SetActive(false);
+        fortFloatButton.SetActive(false);
+        monsterFloatButton.SetActive(false);
         //turn off script and other work ,something setActive false and turn on match summary panel
     }
 

@@ -5,15 +5,15 @@ using UnityEngine;
 public class LookforCamera : MonoBehaviour
 {
     // Start is called before the first frame   
-    public GameObject camera;
+    public GameObject _camera;
     void Start()
     {
-        camera = GameObject.FindGameObjectWithTag("GPS");
+        _camera = GameObject.FindGameObjectWithTag("GPS");
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(camera.transform);
+        transform.LookAt(_camera.transform);
     }
 }

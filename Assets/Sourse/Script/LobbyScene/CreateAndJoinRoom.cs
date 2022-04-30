@@ -35,6 +35,8 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
 
     private void Start()
     {
+        isMonster = false;
+        isFort = false;
         PhotonNetwork.JoinLobby();
     }
 
@@ -59,6 +61,16 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            isFort = true;
+            isMonster = false;
+        }
+        else
+        {
+            isMonster = true;
+            isFort = false;
+        }
         lobbyPanel.SetActive(false);
         roomPanel.SetActive(true);
         roomName.text = PhotonNetwork.CurrentRoom.Name ;
@@ -124,6 +136,8 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
 
     public override void OnLeftRoom()
     {
+        isFort = false;
+        isMonster = false;
         roomPanel.SetActive(false);
         lobbyPanel.SetActive(true);
     }
@@ -134,8 +148,7 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
     }
 
     public void OnClickPlay()
-    {   
-
+    {
         PhotonNetwork.LoadLevel("Game");
     }
 
