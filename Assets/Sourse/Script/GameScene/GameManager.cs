@@ -43,12 +43,37 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public Text monsterPoint;
 
+    public Button normalClassButton;
+
+    public Button fireClassButton;
+
+    public Button laserClassButton;
+
+    public GameObject normalPanel;
+
+    public GameObject firePanel;
+
+    public GameObject laserPanel;
+
+    PhotonView pv;
+
     void Start()
     {
+        pv = GetComponent<PhotonView>();
         humenClassButton.GetComponent<Image>().color = Color.white;
         monsterClassButton.GetComponent<Image>().color = Color.gray;
         antClassButton.GetComponent<Image>().color = Color.gray;
         animalClassButton.GetComponent<Image>().color = Color.gray;
+
+        normalClassButton.GetComponent<Image>().color = Color.white;
+        fireClassButton.GetComponent<Image>().color = Color.gray;
+        laserClassButton.GetComponent<Image>().color = Color.gray;
+
+        fortScore.text = "Score:" + ScoreManager.fortScore;
+        fortPoint.text = "Point:" + ScoreManager.fortPoint;
+
+        monsterScore.text = "Score:" + ScoreManager.monsterScore;
+        monsterPoint.text = "Point:" + ScoreManager.monsterPoint;
 
         if (CreateAndJoinRoom.isMonster)
         {
@@ -63,19 +88,27 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
 
     private void Update()
-    {
-        fortScore.text = "Score:" + ScoreManager.fortScore;
-        fortPoint.text = "Point:" + ScoreManager.fortPoint;
+    {   
+        
+    }
 
-        monsterScore.text = "Score:" + ScoreManager.monsterScore;
-        monsterPoint.text = "Point:" + ScoreManager.monsterPoint;
+    [PunRPC]
+    void RPC_MonsterScoreSyn(int cost)
+    {
+        monsterPoint.text = "Point:" + (ScoreManager.monsterPoint -= cost);
+    }
+
+    [PunRPC]
+    void RPC_FortScoreSyn(int cost)
+    {
+        fortPoint.text = "Point:" + (ScoreManager.fortPoint -= cost);
     }
 
     public void SummonEnemy()
     {   
         if(ScoreManager.monsterPoint >= MonsterAttributeList.costOfLittleWizard)
         {
-            ScoreManager.monsterPoint -= MonsterAttributeList.costOfLittleWizard;
+            pv.RPC("RPC_MonsterScoreSyn", RpcTarget.All, MonsterAttributeList.costOfLittleWizard);
             PhotonNetwork.Instantiate(enemy.name, pos, Quaternion.identity);
         }
         else
@@ -88,9 +121,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void PressToPutFort()
     {
         if (ScoreManager.fortPoint >= FortAttributeList.costOfNormalFort)
-        {   
-
-            ScoreManager.fortPoint -= FortAttributeList.costOfNormalFort;
+        {
+            pv.RPC("RPC_FortScoreSyn", RpcTarget.All, FortAttributeList.costOfNormalFort);
             putFort = true;
             fortSummonPanel.SetActive(false);
             fortFloatButton.SetActive(true);
@@ -182,5 +214,39 @@ public class GameManager : MonoBehaviourPunCallbacks
         animalPanel.SetActive(true);
     }
 
+    public void OnClickNormalClass()
+    {
+        normalClassButton.GetComponent<Image>().color = Color.white;
+        fireClassButton.GetComponent<Image>().color = Color.gray;
+        laserClassButton.GetComponent<Image>().color = Color.gray;
 
+        normalPanel.SetActive(true);
+        firePanel.SetActive(false);
+        laserPanel.SetActive(false);
+
+    }
+
+    public void OnClickFireClass()
+    {
+        normalClassButton.GetComponent<Image>().color = Color.gray;
+        fireClassButton.GetComponent<Image>().color = Color.white;
+        laserClassButton.GetComponent<Image>().color = Color.gray;
+
+        normalPanel.SetActive(false);
+        firePanel.SetActive(true);
+        laserPanel.SetActive(false);
+
+    }
+
+    public void OnClickLaserClass()
+    {
+        normalClassButton.GetComponent<Image>().color = Color.gray;
+        fireClassButton.GetComponent<Image>().color = Color.gray;
+        laserClassButton.GetComponent<Image>().color = Color.white;
+
+        normalPanel.SetActive(false);
+        firePanel.SetActive(false);
+        laserPanel.SetActive(true);
+
+    }
 }
