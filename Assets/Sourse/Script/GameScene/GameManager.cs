@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         
     }
 
-    public override void OnLeftRoom()
+    /*public override void OnLeftRoom()
     {
         PhotonNetwork.ConnectUsingSettings();
     }
@@ -144,6 +144,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinLobby();
     }
 
+    public override void OnJoinedLobby()
+    {
+        PhotonNetwork.LoadLevel("Lobby");
+    }
+    */
     public void OnClickExit()
     {
         PhotonNetwork.LoadLevel("Lobby");

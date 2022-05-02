@@ -38,12 +38,20 @@ public class TimerManager : MonoBehaviourPunCallbacks
     void Update()
     {
         secTimerText.text = secRoundTime.ToString() + ":";
-        minTimerText.text = minRoundTime.ToString();
+        if(minRoundTime < 10)
+        {
+            minTimerText.text = "0" + minRoundTime.ToString();
+        }
+        else
+        {
+            minTimerText.text = minRoundTime.ToString();
+        }
+        
     }
 
     void ScenePause()
     {
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
         matchSummaryPanel.SetActive(true);
         fortSummonPanel.SetActive(false);
         monsterSummonPanel.SetActive(false);
@@ -57,7 +65,7 @@ public class TimerManager : MonoBehaviourPunCallbacks
         while (true)
         {
             if (isDelay && !gameOver)
-            {
+            {   
                 minRoundTime -= 1;
                 if (minRoundTime == 0 && secRoundTime >0)
                 {
@@ -77,4 +85,15 @@ public class TimerManager : MonoBehaviourPunCallbacks
             isDelay = true;
         }
     }
+
+    public override void OnLeftRoom()
+    {
+        PhotonNetwork.ConnectUsingSettings();
+    }
+
+    public override void OnConnectedToMaster()
+    {
+        PhotonNetwork.JoinLobby();
+    }
+
 }

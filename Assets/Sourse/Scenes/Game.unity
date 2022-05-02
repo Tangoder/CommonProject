@@ -13759,8 +13759,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   secTimerText: {fileID: 1331321105}
   minTimerText: {fileID: 1159691831}
-  secRoundTime: 2
-  minRoundTime: 30
+  secRoundTime: 0
+  minRoundTime: 15
   matchSummaryPanel: {fileID: 1553433260}
   fortSummonPanel: {fileID: 1557129738}
   monsterSummonPanel: {fileID: 183424192}
