@@ -5127,7 +5127,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fort: {fileID: 0}
   mybullet: {fileID: 1627521441993660, guid: 12ea0a574b594264685afffd52fff036, type: 3}
-  bulletFireDelay: 0.3
+  bulletFireDelayTime: 1.5
+  target: {fileID: 0}
 --- !u!135 &6364160949352489931
 SphereCollider:
   m_ObjectHideFlags: 0

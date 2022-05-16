@@ -32,6 +32,7 @@ public class PutEnemy : MonoBehaviour
             GameManager.putFort = false;
         }
     }
+
     private void OnMouseDown()
     {
         if (GameManager.putFort == true )

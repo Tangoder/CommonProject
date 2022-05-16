@@ -12,9 +12,9 @@ public class Enemy : MonoBehaviour
 
     private int wavepointIndex = 0;
 
-    public int startHealth = 100;
+    public int startHealth ;
 
-    private float health;
+    float health;
 
     public GameObject hitParticle;
 
@@ -25,8 +25,13 @@ public class Enemy : MonoBehaviour
 
     public float normalBulletDamage;
 
+    PhotonView pv;
+
+    public static bool isDead;
+
     void Start()
     {
+        pv = GetComponent<PhotonView>();
         _animator = GetComponent<Animator>();
         wavepointIndex = 0;
         target = Waypoint.points[wavepointIndex];
@@ -36,10 +41,11 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-        healthBar.fillAmount = health / 100;
+        healthBar.fillAmount = health / startHealth;
         if (health <= 0)
         {
             _animator.SetBool("die", true);
+            isDead = true;
             StartCoroutine(DieDelay());
         }
         else
@@ -55,13 +61,17 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    
+    [PunRPC]
+    void RPC_TakeDamage()
+    {
+        this.health -= normalBulletDamage;
+    }
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "normalBullet")
         {   
             PhotonNetwork.Instantiate(hitParticle.name, transform.position, Quaternion.identity);
-            health -= normalBulletDamage;
+            pv.RPC("RPC_TakeDamage", RpcTarget.All);
         }
     }
 
@@ -75,7 +85,8 @@ public class Enemy : MonoBehaviour
     {
         if (wavepointIndex >= Waypoint.points.Length - 1)
         {
-            Destroy(gameObject);
+            isDead = true;
+            PhotonNetwork.Destroy(gameObject);
             return;
         }
         wavepointIndex++;

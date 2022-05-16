@@ -42,6 +42,13 @@ MonoBehaviour:
   - RPC_ScoreSyn
   - RPC_FortScoreSyn
   - RPC_MonsterScoreSyn
+  - CountDown
+  - TakeDamage
+  - InsFortSyn
+  - RPC_CountDown
+  - RPC_SummonMonsterSyn
+  - RPC_InsFortSyn
+  - RPC_TakeDamage
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

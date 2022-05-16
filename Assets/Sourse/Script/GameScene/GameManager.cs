@@ -87,11 +87,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
-    private void Update()
-    {   
-        
-    }
-
     [PunRPC]
     void RPC_MonsterScoreSyn(int cost)
     {
@@ -129,26 +124,10 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         else
         {
-
+            //
         }
         
     }
-
-    /*public override void OnLeftRoom()
-    {
-        PhotonNetwork.ConnectUsingSettings();
-    }
-
-    public override void OnConnectedToMaster()
-    {
-        PhotonNetwork.JoinLobby();
-    }
-
-    public override void OnJoinedLobby()
-    {
-        PhotonNetwork.LoadLevel("Lobby");
-    }
-    */
     public void OnClickExit()
     {
         PhotonNetwork.LoadLevel("Lobby");

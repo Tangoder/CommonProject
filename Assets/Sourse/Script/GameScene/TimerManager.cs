@@ -29,26 +29,28 @@ public class TimerManager : MonoBehaviourPunCallbacks
 
     public GameObject monsterFloatButton;
 
+    PhotonView pv;
+
     private void Start()
     {
+        pv = GetComponent<PhotonView>();
         gameOver = false;
         StartCoroutine(TimeDelay());
     }
 
-    void Update()
+    private void Update()
     {
-        secTimerText.text = secRoundTime.ToString() + ":";
-        if(minRoundTime < 10)
+        if (Input.GetKey(KeyCode.P))
         {
-            minTimerText.text = "0" + minRoundTime.ToString();
+            Time.timeScale = 0;
         }
-        else
+        if (Input.GetKey(KeyCode.Q))
         {
-            minTimerText.text = minRoundTime.ToString();
+            Time.timeScale = 1;
         }
-        
-    }
 
+
+    }
     void ScenePause()
     {
         //Time.timeScale = 0;
@@ -64,25 +66,44 @@ public class TimerManager : MonoBehaviourPunCallbacks
     {
         while (true)
         {
-            if (isDelay && !gameOver)
-            {   
-                minRoundTime -= 1;
-                if (minRoundTime == 0 && secRoundTime >0)
-                {
-                    secRoundTime -= 1;
-                    minRoundTime += 59;
-                }
-                if (minRoundTime + secRoundTime == 0)
-                {
-                    gameOver = true;
-                    PhotonNetwork.LeaveRoom();
-                    ScenePause();
-                }
-            }
-
+            pv.RPC("RPC_CountDown", RpcTarget.All);
             isDelay = false;
             yield return new WaitForSeconds(1.0f);
             isDelay = true;
+        }
+    }
+
+    [PunRPC]
+    void RPC_CountDown()
+    {
+        if (isDelay && !gameOver)
+        {
+            minRoundTime -= 1;
+
+            secTimerText.text = secRoundTime.ToString() + ":";
+            if (minRoundTime < 10)
+            {
+                minTimerText.text = "0" + minRoundTime.ToString();
+            }
+            else
+            {
+                minTimerText.text = minRoundTime.ToString();
+            }
+
+
+            
+            if (minRoundTime == 0 && secRoundTime > 0)
+            {
+                secRoundTime -= 1;
+                minRoundTime += 59;
+            }
+            if (minRoundTime + secRoundTime == 0 || PhotonNetwork.CurrentRoom.PlayerCount==1)
+            {
+                gameOver = true;
+                PhotonNetwork.LeaveRoom();
+                ScenePause();
+            }
+            
         }
     }
 
