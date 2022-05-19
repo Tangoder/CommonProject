@@ -25,6 +25,8 @@ public class Enemy : MonoBehaviour
 
     public float normalBulletDamage;
 
+    public float fireDamage;
+
     PhotonView pv;
 
     public static bool isDead;
@@ -38,9 +40,8 @@ public class Enemy : MonoBehaviour
         health = startHealth;
     }
 
-    // Update is called once per frame
-    void Update()
-    {   
+    private void FixedUpdate()
+    {
         healthBar.fillAmount = health / startHealth;
         if (health <= 0)
         {
@@ -61,17 +62,24 @@ public class Enemy : MonoBehaviour
         }
     }
 
+
     [PunRPC]
-    void RPC_TakeDamage()
+    void RPC_TakeDamage(float Damage)
     {
-        this.health -= normalBulletDamage;
+        this.health -= Damage;
     }
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "normalBullet")
         {   
             PhotonNetwork.Instantiate(hitParticle.name, transform.position, Quaternion.identity);
-            pv.RPC("RPC_TakeDamage", RpcTarget.All);
+            pv.RPC("RPC_TakeDamage", RpcTarget.All,normalBulletDamage);
+        }
+
+        if (other.tag == "Fire")
+        {
+            //PhotonNetwork.Instantiate(hitParticle.name, transform.position, Quaternion.identity);
+            pv.RPC("RPC_TakeDamage", RpcTarget.All,fireDamage);
         }
     }
 

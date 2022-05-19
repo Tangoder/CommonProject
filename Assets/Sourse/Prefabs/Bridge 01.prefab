@@ -110,4 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverColor: {r: 0.38679248, g: 0.38679248, b: 0.38679248, a: 0}
   errorColor: {r: 1, g: 0, b: 0, a: 0}
-  fort: {fileID: 1875090778556656, guid: 7191a0df8b6695d449a0f18a361bc311, type: 3}
+  fort:
+  - {fileID: 1875090778556656, guid: 7191a0df8b6695d449a0f18a361bc311, type: 3}
+  - {fileID: 1591110490357510, guid: d4af3966dba2cd746ab019083640eb8c, type: 3}
+  - {fileID: 0}

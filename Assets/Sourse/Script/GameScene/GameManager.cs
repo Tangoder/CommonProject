@@ -75,6 +75,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         monsterScore.text = "Score:" + ScoreManager.monsterScore;
         monsterPoint.text = "Point:" + ScoreManager.monsterPoint;
 
+        hidePanel(monsterSummonPanel);
+        hidePanel(fortSummonPanel);
+
         if (CreateAndJoinRoom.isMonster)
         {
             monsterFloatButton.SetActive(true);
@@ -99,7 +102,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         fortPoint.text = "Point:" + (ScoreManager.fortPoint -= cost);
     }
 
-    public void SummonEnemy()
+    public void SummonLittleWizard()
     {   
         if(ScoreManager.monsterPoint >= MonsterAttributeList.costOfLittleWizard)
         {
@@ -108,18 +111,20 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            //send msg point not enough
+            //send msg of point not enough
         }
         
     }
 
-    public void PressToPutFort()
+    public void PutNormalFort()
     {
         if (ScoreManager.fortPoint >= FortAttributeList.costOfNormalFort)
         {
             pv.RPC("RPC_FortScoreSyn", RpcTarget.All, FortAttributeList.costOfNormalFort);
+            PutEnemy.fortNumber = 0;
             putFort = true;
-            fortSummonPanel.SetActive(false);
+            hidePanel(fortSummonPanel);
+            //fortSummonPanel.SetActive(false);
             fortFloatButton.SetActive(true);
         }
         else
@@ -128,21 +133,55 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         
     }
+
+    public void PutFireFort()
+    {
+        if (ScoreManager.fortPoint >= FortAttributeList.costOfFireFort)
+        {
+            pv.RPC("RPC_FortScoreSyn", RpcTarget.All, FortAttributeList.costOfFireFort);
+            PutEnemy.fortNumber = 1;
+            putFort = true;
+            hidePanel(fortSummonPanel);
+            //fortSummonPanel.SetActive(false);
+            fortFloatButton.SetActive(true);
+        }
+        else
+        {
+            //
+        }
+
+    }
+
     public void OnClickExit()
     {
         PhotonNetwork.LoadLevel("Lobby");
     }
 
+    void ShowPanel(GameObject _this)
+    {
+        _this.GetComponent<CanvasGroup>().alpha = 1;
+        _this.GetComponent<CanvasGroup>().interactable = true;
+        _this.GetComponent<CanvasGroup>().blocksRaycasts = true;
+    }
+
+    void hidePanel(GameObject _this)
+    {
+        _this.GetComponent<CanvasGroup>().alpha = 0;
+        _this.GetComponent<CanvasGroup>().interactable =false;
+        _this.GetComponent<CanvasGroup>().blocksRaycasts =false;
+    }
     public void OnClickMonsterCanel()
     {
+        hidePanel(monsterSummonPanel);
         monsterFloatButton.SetActive(true);
-        monsterSummonPanel.SetActive(false);
+        //monsterSummonPanel.SetActive(false);
     }
 
     public void OnClickFortCanel()
     {
+        hidePanel(fortSummonPanel);
         fortFloatButton.SetActive(true);
-        fortSummonPanel.SetActive(false);
+        //fortSummonPanel.SetActive(false);
     }
 
     public void OnClickHumenClass()

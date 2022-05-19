@@ -9,7 +9,7 @@ public class PutEnemy : MonoBehaviour
 
     public Color errorColor;
 
-    public GameObject fort;
+    public GameObject[] fort;
 
     private Vector3 myPos;
 
@@ -17,6 +17,7 @@ public class PutEnemy : MonoBehaviour
 
     private Color originColor;
 
+    public static int fortNumber;
     void Start()
     {
         myColor = GetComponent<Renderer>();
@@ -42,7 +43,7 @@ public class PutEnemy : MonoBehaviour
                 print("can't build more");
                 return;
             }
-            PhotonNetwork.Instantiate(fort.name, myPos, Quaternion.identity);
+            PhotonNetwork.Instantiate(fort[fortNumber].name, myPos, Quaternion.identity);
             GameManager.putFort = false;
         }
         

@@ -53,9 +53,22 @@ public class MonsterFloatUI : MonoBehaviour, IDragHandler, IPointerDownHandler, 
 
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
-        summonPanel.SetActive(true);
+        ShowPanel(summonPanel);
+        //summonPanel.SetActive(true);
         gameObject.SetActive(false);
     }
+    void ShowPanel(GameObject _this)
+    {
+        _this.GetComponent<CanvasGroup>().alpha = 1;
+        _this.GetComponent<CanvasGroup>().interactable = true;
+        _this.GetComponent<CanvasGroup>().blocksRaycasts = true;
+    }
 
+    void hidePanel(GameObject _this)
+    {
+        _this.GetComponent<CanvasGroup>().alpha = 0;
+        _this.GetComponent<CanvasGroup>().interactable = false;
+        _this.GetComponent<CanvasGroup>().blocksRaycasts = false;
+    }
 
 }
