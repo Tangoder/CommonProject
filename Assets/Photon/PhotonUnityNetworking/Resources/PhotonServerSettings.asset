@@ -50,6 +50,11 @@ MonoBehaviour:
   - RPC_InsFortSyn
   - RPC_TakeDamage
   - testing
+  - RPC_FireSmokeParticle
+  - RPC_PointUp
+  - RPC_FortBuy
+  - RPC_MonsterBuy
+  - RPC_AttackFortDamage
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

@@ -54,8 +54,7 @@ public class FortFloatUI : MonoBehaviour, IDragHandler, IPointerDownHandler, IPo
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
         ShowPanel(summonPanel);
-        //summonPanel.SetActive(true);
-        gameObject.SetActive(false);
+        HidePanel(gameObject);
     }
     void ShowPanel(GameObject _this)
     {
@@ -64,7 +63,7 @@ public class FortFloatUI : MonoBehaviour, IDragHandler, IPointerDownHandler, IPo
         _this.GetComponent<CanvasGroup>().blocksRaycasts = true;
     }
 
-    void hidePanel(GameObject _this)
+    void HidePanel(GameObject _this)
     {
         _this.GetComponent<CanvasGroup>().alpha = 0;
         _this.GetComponent<CanvasGroup>().interactable = false;

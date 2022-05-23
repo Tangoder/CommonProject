@@ -9,7 +9,8 @@ public class MonsterAttributeList : MonoBehaviour
     public static int costOfLittleWizard = 10;
 
     //Health
-
+    public static int healthOfLittleWizard = 150;
+    
     //Attack
 
     //

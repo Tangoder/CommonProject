@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 33392842353573922}
   - component: {fileID: 23758132917705532}
   - component: {fileID: 65347789334611550}
-  - component: {fileID: -461510321722017787}
+  - component: {fileID: 6770758887345692003}
+  - component: {fileID: 3343622698119188277}
   m_Layer: 0
   m_Name: Bridge 01
   m_TagString: Untagged
@@ -96,7 +97,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.2000002, z: 1}
   m_Center: {x: 0, y: -0.100000024, z: 0}
---- !u!114 &-461510321722017787
+--- !u!114 &6770758887345692003
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,9 +109,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc0b724a7eef9d9439c9d1dc51f96540, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverColor: {r: 0.38679248, g: 0.38679248, b: 0.38679248, a: 0}
+  hoverColor: {r: 0.5, g: 0.5, b: 0.5, a: 0}
   errorColor: {r: 1, g: 0, b: 0, a: 0}
   fort:
   - {fileID: 1875090778556656, guid: 7191a0df8b6695d449a0f18a361bc311, type: 3}
   - {fileID: 1591110490357510, guid: d4af3966dba2cd746ab019083640eb8c, type: 3}
-  - {fileID: 0}
+--- !u!114 &3343622698119188277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487688346712832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

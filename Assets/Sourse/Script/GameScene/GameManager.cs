@@ -35,11 +35,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public GameObject animalPanel;
 
-    public Text fortScore;
-
     public Text fortPoint;
-
-    public Text monsterScore;
 
     public Text monsterPoint;
 
@@ -55,6 +51,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public GameObject laserPanel;
 
+    public static bool coldDown;
+
     PhotonView pv;
 
     void Start()
@@ -69,14 +67,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         fireClassButton.GetComponent<Image>().color = Color.gray;
         laserClassButton.GetComponent<Image>().color = Color.gray;
 
-        fortScore.text = "Score:" + ScoreManager.fortScore;
         fortPoint.text = "Point:" + ScoreManager.fortPoint;
-
-        monsterScore.text = "Score:" + ScoreManager.monsterScore;
         monsterPoint.text = "Point:" + ScoreManager.monsterPoint;
 
-        hidePanel(monsterSummonPanel);
-        hidePanel(fortSummonPanel);
 
         if (CreateAndJoinRoom.isMonster)
         {
@@ -90,24 +83,40 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
-    [PunRPC]
-    void RPC_MonsterScoreSyn(int cost)
+    private void Update()
     {
-        monsterPoint.text = "Point:" + (ScoreManager.monsterPoint -= cost);
+        monsterPoint.text = "Point:" + ScoreManager.monsterPoint;
+        fortPoint.text = "Point:" + ScoreManager.fortPoint;
+    }
+    /// <summary>
+    /// Call RPC function
+    /// </summary>
+    [PunRPC]
+    void RPC_MonsterBuy(int cost)
+    {
+        ScoreManager.monsterPoint -= cost;
     }
 
     [PunRPC]
-    void RPC_FortScoreSyn(int cost)
+    void RPC_FortBuy(int cost)
     {
-        fortPoint.text = "Point:" + (ScoreManager.fortPoint -= cost);
+        ScoreManager.fortPoint -= cost;
     }
 
+    /// <summary>
+    /// Class of monster
+    /// </summary>
     public void SummonLittleWizard()
     {   
         if(ScoreManager.monsterPoint >= MonsterAttributeList.costOfLittleWizard)
         {
-            pv.RPC("RPC_MonsterScoreSyn", RpcTarget.All, MonsterAttributeList.costOfLittleWizard);
-            PhotonNetwork.Instantiate(enemy.name, pos, Quaternion.identity);
+            coldDown = true;
+            pv.RPC("RPC_MonsterBuy", RpcTarget.All, MonsterAttributeList.costOfLittleWizard);
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.Instantiate(enemy.name, pos, Quaternion.identity);
+            }
+            
         }
         else
         {
@@ -116,16 +125,20 @@ public class GameManager : MonoBehaviourPunCallbacks
         
     }
 
+
+    /// <summary>
+    /// Class of fort 
+    /// </summary>
     public void PutNormalFort()
     {
         if (ScoreManager.fortPoint >= FortAttributeList.costOfNormalFort)
         {
-            pv.RPC("RPC_FortScoreSyn", RpcTarget.All, FortAttributeList.costOfNormalFort);
-            PutEnemy.fortNumber = 0;
+            coldDown = true;
+            pv.RPC("RPC_FortBuy", RpcTarget.All, FortAttributeList.costOfNormalFort);
+            PutFort.fortNumber = 0;
             putFort = true;
-            hidePanel(fortSummonPanel);
-            //fortSummonPanel.SetActive(false);
-            fortFloatButton.SetActive(true);
+            HidePanel(fortSummonPanel);
+            ShowPanel(fortFloatButton);
         }
         else
         {
@@ -138,12 +151,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (ScoreManager.fortPoint >= FortAttributeList.costOfFireFort)
         {
-            pv.RPC("RPC_FortScoreSyn", RpcTarget.All, FortAttributeList.costOfFireFort);
-            PutEnemy.fortNumber = 1;
+            coldDown = true;
+            pv.RPC("RPC_FortBuy", RpcTarget.All, FortAttributeList.costOfFireFort);
+            PutFort.fortNumber = 1;
             putFort = true;
-            hidePanel(fortSummonPanel);
-            //fortSummonPanel.SetActive(false);
-            fortFloatButton.SetActive(true);
+            HidePanel(fortSummonPanel);
+            ShowPanel(fortFloatButton);
         }
         else
         {
@@ -152,10 +165,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     }
 
-    public void OnClickExit()
-    {
-        PhotonNetwork.LoadLevel("Lobby");
-    }
+
+
 
     void ShowPanel(GameObject _this)
     {
@@ -164,24 +175,32 @@ public class GameManager : MonoBehaviourPunCallbacks
         _this.GetComponent<CanvasGroup>().blocksRaycasts = true;
     }
 
-    void hidePanel(GameObject _this)
+    void HidePanel(GameObject _this)
     {
         _this.GetComponent<CanvasGroup>().alpha = 0;
-        _this.GetComponent<CanvasGroup>().interactable =false;
-        _this.GetComponent<CanvasGroup>().blocksRaycasts =false;
+        _this.GetComponent<CanvasGroup>().interactable = false;
+        _this.GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
+
+
+    /// <summary>
+    /// any OnClick button
+    /// </summary>
+    public void OnClickExit()
+    {
+        PhotonNetwork.LoadLevel("Lobby");
+    }
+
     public void OnClickMonsterCanel()
     {
-        hidePanel(monsterSummonPanel);
-        monsterFloatButton.SetActive(true);
-        //monsterSummonPanel.SetActive(false);
+        HidePanel(monsterSummonPanel);
+        ShowPanel(monsterFloatButton);
     }
 
     public void OnClickFortCanel()
     {
-        hidePanel(fortSummonPanel);
-        fortFloatButton.SetActive(true);
-        //fortSummonPanel.SetActive(false);
+        HidePanel(fortSummonPanel);
+        ShowPanel(fortFloatButton);
     }
 
     public void OnClickHumenClass()
@@ -191,10 +210,10 @@ public class GameManager : MonoBehaviourPunCallbacks
         antClassButton.GetComponent<Image>().color = Color.gray;
         animalClassButton.GetComponent<Image>().color = Color.gray;
 
-        humenPanel.SetActive(true);
-        monsterPanel.SetActive(false);
-        antPanel.SetActive(false);
-        animalPanel.SetActive(false);
+        ShowPanel(humenPanel);
+        HidePanel(monsterPanel);
+        HidePanel(antPanel);
+        HidePanel(animalPanel);
 
     }
 
@@ -205,10 +224,10 @@ public class GameManager : MonoBehaviourPunCallbacks
         antClassButton.GetComponent<Image>().color = Color.gray;
         animalClassButton.GetComponent<Image>().color = Color.gray;
 
-        humenPanel.SetActive(false);
-        monsterPanel.SetActive(true);
-        antPanel.SetActive(false);
-        animalPanel.SetActive(false);
+        HidePanel(humenPanel);
+        ShowPanel(monsterPanel);
+        HidePanel(antPanel);
+        HidePanel(animalPanel);
     }
 
     public void OnClickAntClass()
@@ -218,10 +237,10 @@ public class GameManager : MonoBehaviourPunCallbacks
         antClassButton.GetComponent<Image>().color = Color.white;
         animalClassButton.GetComponent<Image>().color = Color.gray;
 
-        humenPanel.SetActive(false);
-        monsterPanel.SetActive(false);
-        antPanel.SetActive(true);
-        animalPanel.SetActive(false);
+        HidePanel(humenPanel);
+        HidePanel(monsterPanel);
+        ShowPanel(antPanel);
+        HidePanel(animalPanel);
     }
 
     public void OnClickAnimalClass()
@@ -231,10 +250,10 @@ public class GameManager : MonoBehaviourPunCallbacks
         antClassButton.GetComponent<Image>().color = Color.gray;
         animalClassButton.GetComponent<Image>().color = Color.white;
 
-        humenPanel.SetActive(false);
-        monsterPanel.SetActive(false);
-        antPanel.SetActive(false);
-        animalPanel.SetActive(true);
+        HidePanel(humenPanel);
+        HidePanel(monsterPanel);
+        HidePanel(antPanel);
+        ShowPanel(animalPanel);
     }
 
     public void OnClickNormalClass()
@@ -243,9 +262,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         fireClassButton.GetComponent<Image>().color = Color.gray;
         laserClassButton.GetComponent<Image>().color = Color.gray;
 
-        normalPanel.SetActive(true);
-        firePanel.SetActive(false);
-        laserPanel.SetActive(false);
+        ShowPanel(normalPanel);
+        HidePanel(firePanel);
+        HidePanel(laserPanel);
 
     }
 
@@ -255,9 +274,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         fireClassButton.GetComponent<Image>().color = Color.white;
         laserClassButton.GetComponent<Image>().color = Color.gray;
 
-        normalPanel.SetActive(false);
-        firePanel.SetActive(true);
-        laserPanel.SetActive(false);
+        HidePanel(normalPanel);
+        ShowPanel(firePanel);
+        HidePanel(laserPanel);
 
     }
 
@@ -267,9 +286,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         fireClassButton.GetComponent<Image>().color = Color.gray;
         laserClassButton.GetComponent<Image>().color = Color.white;
 
-        normalPanel.SetActive(false);
-        firePanel.SetActive(false);
-        laserPanel.SetActive(true);
+        HidePanel(normalPanel);
+        HidePanel(firePanel);
+        ShowPanel(laserPanel);
 
     }
 }

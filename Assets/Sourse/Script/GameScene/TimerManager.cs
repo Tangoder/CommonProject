@@ -29,6 +29,12 @@ public class TimerManager : MonoBehaviourPunCallbacks
 
     public GameObject monsterFloatButton;
 
+    public GameObject winText;
+
+    public GameObject loseText;
+
+    public GameObject disconnection;
+
     PhotonView pv;
 
     private void Start()
@@ -36,25 +42,42 @@ public class TimerManager : MonoBehaviourPunCallbacks
         pv = GetComponent<PhotonView>();
         gameOver = false;
         StartCoroutine(TimeDelay());
+        secTimerText.text = secRoundTime.ToString() + ":";
+        if (minRoundTime < 10)
+        {
+            minTimerText.text = "0" + minRoundTime.ToString();
+        }
+        else
+        {
+            minTimerText.text = minRoundTime.ToString();
+        }
     }
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.P))
-        {
-            Time.timeScale = 0;
-        }
-        if (Input.GetKey(KeyCode.Q))
-        {
-            Time.timeScale = 1;
-        }
-
 
     }
     void ScenePause()
     {
         //Time.timeScale = 0;
         matchSummaryPanel.SetActive(true);
+        if(PhotonNetwork.CurrentRoom.PlayerCount == 1)
+        {
+            disconnection.SetActive(true);
+            winText.SetActive(true);
+        }
+        else
+        {
+            if (MainFort.isBroken ^ CreateAndJoinRoom.isFort)
+            {
+                winText.SetActive(true);
+            }
+            else
+            {
+                loseText.SetActive(true);
+            }
+        }
+        
         fortSummonPanel.SetActive(false);
         monsterSummonPanel.SetActive(false);
         fortFloatButton.SetActive(false);
@@ -67,9 +90,19 @@ public class TimerManager : MonoBehaviourPunCallbacks
         while (true)
         {
             pv.RPC("RPC_CountDown", RpcTarget.All);
+            pv.RPC("RPC_PointUp", RpcTarget.All);
             isDelay = false;
             yield return new WaitForSeconds(1.0f);
             isDelay = true;
+        }
+    }
+    [PunRPC]
+    void RPC_PointUp()
+    {
+        if (isDelay&&!gameOver)
+        {
+            ScoreManager.monsterPoint += 1;
+            ScoreManager.fortPoint += 1;
         }
     }
 
@@ -97,7 +130,7 @@ public class TimerManager : MonoBehaviourPunCallbacks
                 secRoundTime -= 1;
                 minRoundTime += 59;
             }
-            if (minRoundTime + secRoundTime == 0 || PhotonNetwork.CurrentRoom.PlayerCount==1)
+            if (minRoundTime + secRoundTime == 0 || PhotonNetwork.CurrentRoom.PlayerCount==1 || MainFort.isBroken)
             {
                 gameOver = true;
                 PhotonNetwork.LeaveRoom();

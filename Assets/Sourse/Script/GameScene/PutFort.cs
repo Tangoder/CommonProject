@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class PutEnemy : MonoBehaviour
+public class PutFort : MonoBehaviour
 {
     public Color hoverColor;
 
@@ -18,8 +18,12 @@ public class PutEnemy : MonoBehaviour
     private Color originColor;
 
     public static int fortNumber;
+
+    private PhotonView pv;
+
     void Start()
     {
+        pv = GetComponent<PhotonView>();
         myColor = GetComponent<Renderer>();
         originColor = myColor.material.color;
         myPos = GetComponent<Transform>().position;
@@ -43,7 +47,11 @@ public class PutEnemy : MonoBehaviour
                 print("can't build more");
                 return;
             }
-            PhotonNetwork.Instantiate(fort[fortNumber].name, myPos, Quaternion.identity);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.Instantiate(fort[fortNumber].name, myPos, Quaternion.identity);
+            }
+            
             GameManager.putFort = false;
         }
         

@@ -31,13 +31,18 @@ public class UIColdDownManager : MonoBehaviour
                 timer = 0;
                 isStartTime = false;
                 GetComponent<Button>().interactable = true;
+                GameManager.coldDown = false;
             }
         }
     }
 
     public void OnClickSummon()
     {
-        GetComponent<Button>().interactable = false;
-        isStartTime = true;
+        if (GameManager.coldDown)
+        {
+            GetComponent<Button>().interactable = false;
+            isStartTime = true;
+        }
+        
     }
 }
