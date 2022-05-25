@@ -4,11 +4,15 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
 
-public class FireFortController : MonoBehaviour
+public class Cannon001Controller : MonoBehaviour
 {
-    public int startHealth;
+    public float startHealth;
 
-    public static int level;
+    public float bulletFireDelayTime;
+
+    public static int level=1;
+
+    public float healthRate;
 
     public GameObject rotateAxis;
 
@@ -18,11 +22,13 @@ public class FireFortController : MonoBehaviour
 
     private float fireReloadTime;
 
-    private Vector3 myPos;
+    public  GameObject firePosition;
 
     public Transform target;
 
-    public ParticleSystem fire;
+    public ParticleSystem fireSmoke;
+
+    private PhotonView pv;
 
     float health;
 
@@ -35,11 +41,10 @@ public class FireFortController : MonoBehaviour
     void Start()
     {
         isDead = false;
-        health = startHealth;
-        level = 1;
+        health = startHealth + (healthRate * level);
+        pv = GetComponent<PhotonView>();
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
-        myPos = GetComponent<Transform>().position;
-        myPos.y += 0.5f;  //reset fort position
+        StartCoroutine(FireDelay());
         StartCoroutine(LifeCountDown());
     }
 
@@ -51,14 +56,14 @@ public class FireFortController : MonoBehaviour
         foreach (GameObject enemy in enemies)
         {
             float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-            if (distanceToEnemy < shortestDistance)
+            if(distanceToEnemy < shortestDistance)
             {
                 shortestDistance = distanceToEnemy;
                 nearestEnemy = enemy;
             }
         }
 
-        if (nearestEnemy != null && shortestDistance <= 3f)
+        if(nearestEnemy != null && shortestDistance <=3f)
         {
             target = nearestEnemy.transform;
         }
@@ -66,15 +71,11 @@ public class FireFortController : MonoBehaviour
         {
             target = null;
         }
+
     }
 
     void FixedUpdate()
     {
-        if (target == null)
-        {
-            mybullet.GetComponent<ParticleSystem>().Stop();
-        }
-
         healthBar.fillAmount = health / startHealth;
         if (health == 0)
         {
@@ -83,6 +84,7 @@ public class FireFortController : MonoBehaviour
             {
                 dieParticle.GetComponent<ParticleSystem>().Play();
             }
+            
         }
         else if (health <= -1)
         {
@@ -90,26 +92,27 @@ public class FireFortController : MonoBehaviour
             {
                 PhotonNetwork.Destroy(gameObject);
             }
-            
+                
         }
     }
 
+    [PunRPC]
+    void RPC_FireSmokeParticle()
+    {
+        fireSmoke.GetComponent<ParticleSystem>().Play();
+    }
+    
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Enemy")
+        if (other.gameObject.tag == "Enemy" && !isDead)
         {
-            if (!mybullet.GetComponent<ParticleSystem>().isPlaying)
-            {
-                mybullet.GetComponent<ParticleSystem>().Play();
-            }
-            else if(target == null || isDead)
-            {
-                mybullet.GetComponent<ParticleSystem>().Stop();
-            }
             rotateAxis.transform.LookAt(target);
-            
+            isFire = true;
         }
-
+        else if (target == null)
+        {
+            isFire = false;
+        }
     }
 
     IEnumerator LifeCountDown()
@@ -121,4 +124,19 @@ public class FireFortController : MonoBehaviour
         }
     }
 
+    IEnumerator FireDelay()
+    {
+        while (true)
+        {
+            if (isFire && PhotonNetwork.IsMasterClient && !isDead)
+            {
+                PhotonNetwork.Instantiate(mybullet.name, firePosition.transform.position, firePosition.transform.rotation);
+                pv.RPC("RPC_FireSmokeParticle", RpcTarget.All);
+            }
+            
+            yield return new WaitForSeconds(bulletFireDelayTime);
+
+            
+        }
+    }
 }

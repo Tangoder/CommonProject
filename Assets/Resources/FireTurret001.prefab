@@ -256,7 +256,7 @@ GameObject:
   - component: {fileID: 1066342424722368689}
   - component: {fileID: 3269451676446284873}
   m_Layer: 2
-  m_Name: FattyMortarG02
+  m_Name: FireTurret001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -346,9 +346,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 887999dde04d75340803993346795cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startHealth: 30
+  startHealth: 25
   rotateAxis: {fileID: 1393367149455902}
   mybullet: {fileID: 7417218948437958034}
+  healthRate: 5
   target: {fileID: 0}
   fire: {fileID: 198637950067575458, guid: 007c57e2df8e9b144b99f471b84f3d56, type: 3}
   healthBar: {fileID: 7983652651059970830}

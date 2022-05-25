@@ -1183,7 +1183,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7053085626700073285, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
       propertyPath: m_Name
-      value: FireFort
+      value: FireTurret001
       objectReference: {fileID: 0}
     - target: {fileID: 7053085626700073286, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
       propertyPath: m_Pivot.x
@@ -1301,6 +1301,34 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 38f13b7585399cf48aae9e14f2cb6b4b, type: 3}
+    - target: {fileID: 7053085627265417484, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053085627265417484, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053085627265417484, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1609751622}
+    - target: {fileID: 7053085627265417484, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053085627265417484, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LevelUpOfFireTurret001
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053085627265417484, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053085627265417484, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
 --- !u!224 &186814556 stripped
@@ -1308,6 +1336,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7053085626700073286, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
   m_PrefabInstance: {fileID: 186814555}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &186814557 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7053085626929756025, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
+  m_PrefabInstance: {fileID: 186814555}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &191761536
 GameObject:
   m_ObjectHideFlags: 0
@@ -5500,6 +5539,34 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 7d685c5837013c34baa7915f5dc17406, type: 3}
+    - target: {fileID: 7053085627265417484, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053085627265417484, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053085627265417484, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1609751622}
+    - target: {fileID: 7053085627265417484, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053085627265417484, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LevelUpOfLittleWizard
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053085627265417484, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053085627265417484, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
 --- !u!224 &741667535 stripped
@@ -5516,6 +5583,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ebb60d728fc231d4895a75240bc8bb5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &741667537 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7053085626929756025, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
+  m_PrefabInstance: {fileID: 741667534}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &744522940
@@ -8234,7 +8312,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7053085626700073285, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
       propertyPath: m_Name
-      value: NormalFort
+      value: Cannon001
       objectReference: {fileID: 0}
     - target: {fileID: 7053085626700073286, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
       propertyPath: m_Pivot.x
@@ -8376,6 +8454,34 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 8ffa368987491354294fc813c0c8b68b, type: 3}
+    - target: {fileID: 7053085627265417484, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053085627265417484, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053085627265417484, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1609751622}
+    - target: {fileID: 7053085627265417484, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053085627265417484, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LevelUpOfCannon001
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053085627265417484, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053085627265417484, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
 --- !u!224 &1159876030 stripped
@@ -8392,6 +8498,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ebb60d728fc231d4895a75240bc8bb5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1159876032 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7053085626929756025, guid: 5f42b2360f837bb4695a20805642c952, type: 3}
+  m_PrefabInstance: {fileID: 1159876029}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1165786875
@@ -11817,6 +11934,9 @@ MonoBehaviour:
   normalPanel: {fileID: 339760070}
   firePanel: {fileID: 1131973817}
   laserPanel: {fileID: 51627319}
+  littleWizardLevelText: {fileID: 741667537}
+  Cannon001LevelText: {fileID: 1159876032}
+  fireTurret001LevelText: {fileID: 186814557}
 --- !u!114 &1609751623
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -55,6 +55,7 @@ MonoBehaviour:
   - RPC_FortBuy
   - RPC_MonsterBuy
   - RPC_AttackFortDamage
+  - RPC_LevelUp
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

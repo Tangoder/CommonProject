@@ -53,6 +53,12 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public static bool coldDown;
 
+    public Text littleWizardLevelText;
+
+    public Text Cannon001LevelText;
+
+    public Text fireTurret001LevelText;
+
     PhotonView pv;
 
     void Start()
@@ -103,6 +109,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         ScoreManager.fortPoint -= cost;
     }
 
+    [PunRPC]
+    public void RPC_LevelUp(int myClass)
+    {
+        //
+    }
     /// <summary>
     /// Class of monster
     /// </summary>
@@ -125,7 +136,17 @@ public class GameManager : MonoBehaviourPunCallbacks
         
     }
 
+    public void LevelUpOfLittleWizard()
+    {
+        if (ScoreManager.monsterPoint >= MonsterAttributeList.levelUpOfLittleWizard && Enemy.level < MonsterAttributeList.maxLevelOfLittleWizard)
+        {
+            pv.RPC("RPC_MonsterBuy", RpcTarget.All, MonsterAttributeList.levelUpOfLittleWizard);
+            pv.RPC("RPC_LevelUp", RpcTarget.All);
+            Enemy.level += 1;
+            littleWizardLevelText.text = "Level:" + Enemy.level;
+        }
 
+    }
     /// <summary>
     /// Class of fort 
     /// </summary>
@@ -164,6 +185,27 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
 
     }
+
+    public void LevelUpOfCannon001()
+    {
+        if (ScoreManager.fortPoint >= FortAttributeList.levelUpOfCannon001 && Cannon001Controller.level < FortAttributeList.maxLevelOfCannon001)
+        {
+            pv.RPC("RPC_FortBuy", RpcTarget.All, FortAttributeList.levelUpOfCannon001);
+            Cannon001Controller.level += 1;
+            Cannon001LevelText.text = "Level:" + Cannon001Controller.level;
+        }
+    }
+
+    public void LevelUpOfFireTurret001()
+    {
+        if (ScoreManager.fortPoint >= FortAttributeList.levelUpOfFireTurret001 && FireTurret001Controller.level < FortAttributeList.maxLevelOfFireTurret001)
+        {
+            pv.RPC("RPC_FortBuy", RpcTarget.All, FortAttributeList.levelUpOfFireTurret001);
+            FireTurret001Controller.level += 1;
+            fireTurret001LevelText.text = "Level:" + FireTurret001Controller.level;
+        }
+    }
+
 
 
 

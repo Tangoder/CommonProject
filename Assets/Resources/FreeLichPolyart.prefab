@@ -343,13 +343,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b1e5c1b0f2e2d2408d9907b3f21c6c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  startHealth: 150
-  attackFortDamage: 10
+  speed: 0.5
+  startHealth: 45
+  attackFortDamage: 8
+  healthRate: 5
+  damageRate: 2
+  speedRate: 0.5
   hitParticle: {fileID: 1337198075554910, guid: 25c7aa9ad705fe143a4d71c1c8deb7d4, type: 3}
   healthBar: {fileID: 3220495988694659992}
   _animator: {fileID: 8735932539965035658}
-  normalBulletDamage: 5
+  normalBulletDamage: 50
   fireDamage: 1
 --- !u!114 &2813440613411085512
 MonoBehaviour:

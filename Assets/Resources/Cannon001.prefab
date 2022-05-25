@@ -5209,7 +5209,7 @@ GameObject:
   - component: {fileID: 1737022662086078943}
   - component: {fileID: 5004830683803178166}
   m_Layer: 2
-  m_Name: FattyCannonG02
+  m_Name: Cannon001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5299,8 +5299,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3dc04d21249007489868a01fac0ae56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startHealth: 30
+  startHealth: 25
   bulletFireDelayTime: 2
+  healthRate: 5
   rotateAxis: {fileID: 1543343654471068}
   mybullet: {fileID: 1627521441993660, guid: 12ea0a574b594264685afffd52fff036, type: 3}
   firePosition: {fileID: 958090084873603468}

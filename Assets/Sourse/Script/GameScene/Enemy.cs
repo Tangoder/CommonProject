@@ -12,13 +12,19 @@ public class Enemy : MonoBehaviour
 
     public float speed;
 
-    public int startHealth ;
+    public float startHealth;
 
-    public int attackFortDamage;
+    public float attackFortDamage;
+
+    public float healthRate;
+
+    public float damageRate;
+
+    public float speedRate;
 
     float health;
 
-    public static int level;
+    public static int level = 1;
 
     public GameObject hitParticle;
 
@@ -26,9 +32,9 @@ public class Enemy : MonoBehaviour
 
     public Animator _animator;
 
-    public int normalBulletDamage;
+    public float normalBulletDamage;
 
-    public int fireDamage;
+    public float fireDamage;
 
     PhotonView pv;
 
@@ -40,8 +46,10 @@ public class Enemy : MonoBehaviour
         _animator = GetComponent<Animator>();
         wavepointIndex = 0;
         target = Waypoint.points[wavepointIndex];
-        level = 1;
-        health = startHealth;
+        health = startHealth + (healthRate * level);
+        attackFortDamage = attackFortDamage + (damageRate * level);
+        speed = speed + (speedRate * level);
+        Debug.Log("H:" + health + "A:" + attackFortDamage + "S:" + speed + "L:" + level);
     }
 
     private void FixedUpdate()
@@ -76,13 +84,13 @@ public class Enemy : MonoBehaviour
     }
 
     [PunRPC]
-    void RPC_TakeDamage(int Damage)
+    void RPC_TakeDamage(float Damage)
     {   
         this.health -= Damage;
     }
 
     [PunRPC]
-    void RPC_AttackFortDamage(int Damage)
+    void RPC_AttackFortDamage(float Damage)
     {
         MainFort.health -= Damage;
     }

@@ -4,29 +4,27 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
 
-public class NormalFortController : MonoBehaviour
+public class FireTurret001Controller : MonoBehaviour
 {
-    public int startHealth;
+    public float startHealth;
 
-    public float bulletFireDelayTime;
-
-    public static int level;
+    public static int level=1;
 
     public GameObject rotateAxis;
 
     public GameObject mybullet;
 
+    public float healthRate;
+
     private bool isFire;
 
     private float fireReloadTime;
 
-    public  GameObject firePosition;
+    private Vector3 myPos;
 
     public Transform target;
 
-    public ParticleSystem fireSmoke;
-
-    private PhotonView pv;
+    public ParticleSystem fire;
 
     float health;
 
@@ -39,11 +37,10 @@ public class NormalFortController : MonoBehaviour
     void Start()
     {
         isDead = false;
-        level = 1;
-        health = startHealth;
-        pv = GetComponent<PhotonView>();
+        health = startHealth + (healthRate * level);
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
-        StartCoroutine(FireDelay());
+        myPos = GetComponent<Transform>().position;
+        myPos.y += 0.5f;  //reset fort position
         StartCoroutine(LifeCountDown());
     }
 
@@ -55,14 +52,14 @@ public class NormalFortController : MonoBehaviour
         foreach (GameObject enemy in enemies)
         {
             float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-            if(distanceToEnemy < shortestDistance)
+            if (distanceToEnemy < shortestDistance)
             {
                 shortestDistance = distanceToEnemy;
                 nearestEnemy = enemy;
             }
         }
 
-        if(nearestEnemy != null && shortestDistance <=3f)
+        if (nearestEnemy != null && shortestDistance <= 3f)
         {
             target = nearestEnemy.transform;
         }
@@ -70,11 +67,16 @@ public class NormalFortController : MonoBehaviour
         {
             target = null;
         }
-
     }
 
     void FixedUpdate()
     {
+        Debug.Log(health);
+        if (target == null)
+        {
+            mybullet.GetComponent<ParticleSystem>().Stop();
+        }
+
         healthBar.fillAmount = health / startHealth;
         if (health == 0)
         {
@@ -83,7 +85,6 @@ public class NormalFortController : MonoBehaviour
             {
                 dieParticle.GetComponent<ParticleSystem>().Play();
             }
-            
         }
         else if (health <= -1)
         {
@@ -91,27 +92,26 @@ public class NormalFortController : MonoBehaviour
             {
                 PhotonNetwork.Destroy(gameObject);
             }
-                
+            
         }
     }
 
-    [PunRPC]
-    void RPC_FireSmokeParticle()
-    {
-        fireSmoke.GetComponent<ParticleSystem>().Play();
-    }
-    
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Enemy" && !isDead)
+        if (other.gameObject.tag == "Enemy")
         {
+            if (!mybullet.GetComponent<ParticleSystem>().isPlaying)
+            {
+                mybullet.GetComponent<ParticleSystem>().Play();
+            }
+            else if(target == null || isDead)
+            {
+                mybullet.GetComponent<ParticleSystem>().Stop();
+            }
             rotateAxis.transform.LookAt(target);
-            isFire = true;
+            
         }
-        else if (target == null)
-        {
-            isFire = false;
-        }
+
     }
 
     IEnumerator LifeCountDown()
@@ -123,19 +123,4 @@ public class NormalFortController : MonoBehaviour
         }
     }
 
-    IEnumerator FireDelay()
-    {
-        while (true)
-        {
-            if (isFire && PhotonNetwork.IsMasterClient && !isDead)
-            {
-                PhotonNetwork.Instantiate(mybullet.name, firePosition.transform.position, firePosition.transform.rotation);
-                pv.RPC("RPC_FireSmokeParticle", RpcTarget.All);
-            }
-            
-            yield return new WaitForSeconds(bulletFireDelayTime);
-
-            
-        }
-    }
 }

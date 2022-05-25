@@ -21,4 +21,6 @@ public class TODOList
     //砲台生命(時間) -- timeCountDown + enemyHealthBar
     //升級系統
     //觸碰焦點 浮動UI顯示tips
+    //砲塔升級後血量不同步 結束畫面會先吃中離判斷
+    //給予屬性表的數值 inspector levelText 召喚按鈕 升級按鈕
 }

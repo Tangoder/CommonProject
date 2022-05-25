@@ -10,8 +10,10 @@ public class MonsterAttributeList : MonoBehaviour
 
     //Health
     public static int healthOfLittleWizard = 150;
-    
-    //Attack
 
-    //
+    //IncreaseLevel Cost
+    public static int levelUpOfLittleWizard = 10;
+
+    //MaxLevel
+    public static int maxLevelOfLittleWizard = 5;
 }
