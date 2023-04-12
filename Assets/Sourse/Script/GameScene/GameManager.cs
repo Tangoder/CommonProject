@@ -5,7 +5,7 @@ using Photon.Pun;
 using UnityEngine.UI;
 public class GameManager : MonoBehaviourPunCallbacks
 {
-    public GameObject enemy;
+    public GameObject[] enemy;
 
     public Vector3 pos;
 
@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public static bool coldDown;
 
-    public Text littleWizardLevelText;
+    public Text[] MonsterLevelText;
 
     public Text Cannon001LevelText;
 
@@ -94,6 +94,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         monsterPoint.text = "Point:" + ScoreManager.monsterPoint;
         fortPoint.text = "Point:" + ScoreManager.fortPoint;
     }
+
+
+
     /// <summary>
     /// Call RPC function
     /// </summary>
@@ -109,11 +112,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         ScoreManager.fortPoint -= cost;
     }
 
-    [PunRPC]
-    public void RPC_LevelUp(int myClass)
-    {
-        //
-    }
+
+
+
+
+
     /// <summary>
     /// Class of monster
     /// </summary>
@@ -125,7 +128,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             pv.RPC("RPC_MonsterBuy", RpcTarget.All, MonsterAttributeList.costOfLittleWizard);
             if (!PhotonNetwork.IsMasterClient)
             {
-                PhotonNetwork.Instantiate(enemy.name, pos, Quaternion.identity);
+                PhotonNetwork.Instantiate(enemy[0].name, pos, Quaternion.identity);
             }
             
         }
@@ -136,17 +139,51 @@ public class GameManager : MonoBehaviourPunCallbacks
         
     }
 
+    public void SummonOrc()
+    {
+        if (ScoreManager.monsterPoint >= MonsterAttributeList.costOfOrc)
+        {
+            coldDown = true;
+            pv.RPC("RPC_MonsterBuy", RpcTarget.All, MonsterAttributeList.costOfOrc);
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.Instantiate(enemy[1].name, pos, Quaternion.identity);
+            }
+
+        }
+        else
+        {
+            //send msg of point not enough
+        }
+
+    }
+
     public void LevelUpOfLittleWizard()
     {
         if (ScoreManager.monsterPoint >= MonsterAttributeList.levelUpOfLittleWizard && Enemy.level < MonsterAttributeList.maxLevelOfLittleWizard)
         {
             pv.RPC("RPC_MonsterBuy", RpcTarget.All, MonsterAttributeList.levelUpOfLittleWizard);
-            pv.RPC("RPC_LevelUp", RpcTarget.All);
             Enemy.level += 1;
-            littleWizardLevelText.text = "Level:" + Enemy.level;
+            MonsterLevelText[0].text = "Level:" + Enemy.level;
         }
 
     }
+
+    public void LevelUpOfOrc()
+    {
+        if (ScoreManager.monsterPoint >= MonsterAttributeList.levelUpOfOrc && Orc.level < MonsterAttributeList.maxLevelOfOrc)
+        {
+            pv.RPC("RPC_MonsterBuy", RpcTarget.All, MonsterAttributeList.levelUpOfOrc);
+            Orc.level += 1;
+            MonsterLevelText[1].text = "Level:" + Orc.level;
+        }
+
+    }
+
+
+
+
+
     /// <summary>
     /// Class of fort 
     /// </summary>

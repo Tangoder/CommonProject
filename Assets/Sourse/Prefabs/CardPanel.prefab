@@ -324,6 +324,7 @@ GameObject:
   - component: {fileID: 7053085627141225774}
   - component: {fileID: 7053085627141225773}
   - component: {fileID: 19629697124861776}
+  - component: {fileID: 4586033067248557240}
   m_Layer: 0
   m_Name: ObjectImg
   m_TagString: Untagged
@@ -459,6 +460,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coldTime: 2
   filledImg: {fileID: 1193969916910537932}
+--- !u!114 &4586033067248557240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7053085627141225763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &7053085627265417474
 GameObject:
   m_ObjectHideFlags: 0
@@ -471,6 +494,7 @@ GameObject:
   - component: {fileID: 7053085627265417486}
   - component: {fileID: 7053085627265417485}
   - component: {fileID: 7053085627265417484}
+  - component: {fileID: 8255741234600482295}
   m_Layer: 0
   m_Name: PlusButton
   m_TagString: Untagged
@@ -580,3 +604,25 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8255741234600482295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7053085627265417474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

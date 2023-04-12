@@ -352,8 +352,8 @@ MonoBehaviour:
   hitParticle: {fileID: 1337198075554910, guid: 25c7aa9ad705fe143a4d71c1c8deb7d4, type: 3}
   healthBar: {fileID: 3220495988694659992}
   _animator: {fileID: 8735932539965035658}
-  normalBulletDamage: 50
-  fireDamage: 1
+  normalBulletDamage: 15
+  fireDamage: 0.2
 --- !u!114 &2813440613411085512
 MonoBehaviour:
   m_ObjectHideFlags: 0
